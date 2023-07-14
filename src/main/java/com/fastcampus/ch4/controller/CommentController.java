@@ -26,9 +26,12 @@ public class CommentController {
 	CommentService service;
 	
 	@PatchMapping("/comments/{cno}")
-	public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto) {
+	public ResponseEntity<String> modify(@PathVariable Integer cno, @RequestBody CommentDto dto, HttpSession session) {
+//		String commenter = (String) session.getAttribute("id");
+		String commenter = "asdf";
+		dto.setCommenter(commenter);
 		dto.setCno(cno);
-		System.out.println(dto);
+		System.out.println("dto="+dto);
 		
 		try {
 			int rowCnt = service.modify(dto);
@@ -47,7 +50,7 @@ public class CommentController {
 	@PostMapping("/comments")
 	public ResponseEntity<String> write(@RequestBody CommentDto dto, Integer bno, HttpSession session) {
 //		String commenter = (String) session.getAttribute("id");
-		String commenter = "qwer";
+		String commenter = "asdf";
 		dto.setCommenter(commenter);
 		dto.setBno(bno);
 		
@@ -69,7 +72,7 @@ public class CommentController {
 	@DeleteMapping("/comments/{cno}")
 	public ResponseEntity<String> remove(@PathVariable Integer cno, Integer bno, HttpSession session) {
 //		String commenter = (String) session.getAttribute("id");
-		String commenter = "qwer";
+		String commenter = "asdf";
 		try {
 			int rowCnt = service.remove(cno, bno, commenter);
 			
